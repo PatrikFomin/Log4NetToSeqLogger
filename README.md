@@ -11,26 +11,26 @@ https://getseq.net/
 Copy the one class SeqToLog4NetLogManager.cs into your project (or run the demo project)
 
 Configure the url to the Seq server. (This is done once during startup)
-SeqToLog4NetLogManager.Configure(seqServerUrl: "http://localhost:5341/");
+        SeqToLog4NetLogManager.Configure(seqServerUrl: "http://localhost:5341/");
 
 Instead of using log4net's GetLogger(assembly/name), you call SeqToLog4NetLogManager.GetLogger(assembly/name).
 
 Change this:
-ILog log4netLogger = log4net.LogManager.GetLogger("TestLogger");
+        ILog log4netLogger = log4net.LogManager.GetLogger("TestLogger");
 to
-IStructuredLogger logger = SeqToLog4NetLogManager.GetLogger("TestLogger");
+        IStructuredLogger logger = SeqToLog4NetLogManager.GetLogger("TestLogger");
 
 The difference is the interface backing the logger. So instead of using ILog from log4net, you use IStructuredLogger that implements ILog. All your normal calls to Warn/Error/Debug/Info/Fatal will continue to work.
 
 Now you can start logging structured data using the additional optional parameter object structure.
 
-IStructuredLogger logger = SeqToLog4NetLogManager.GetLogger("TestLogger");
+        IStructuredLogger logger = SeqToLog4NetLogManager.GetLogger("TestLogger");
 
-// Anonymous type of data that you wish to log
-var SensorInput = new { Latitude = 25, Longitude = 134 };
+        // Anonymous type of data that you wish to log
+        var SensorInput = new { Latitude = 25, Longitude = 134 };
 
-// Log a fatal error using the anonymous type and no exception
-logger.Fatal("The sensor is reporting some incorrect values", SensorInput);
+        // Log a fatal error using the anonymous type and no exception
+        logger.Fatal("The sensor is reporting some incorrect values", SensorInput);
 
 
 You can of course continue to use log4net like normal. This just extends log4net by adding 2 new methods to each logging type (Info/Warn/Debug/Error/Fatal)
@@ -38,7 +38,7 @@ You can of course continue to use log4net like normal. This just extends log4net
 
 Complete test code, MVC action, if you have copied the SeqToLog4NetLogManager.cs file to your project:
 
-public ActionResult Index()
+        public ActionResult Index()
         {
             // Configure log4net (This is done using your normal initialization methods. I just put it here for demo usage)
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo(System.IO.Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "log4net.config")));
@@ -76,10 +76,11 @@ public ActionResult Index()
         
 <h2>JSON parsing, i do not use Newtonsoft.json</h2>
 The parsing of your data is done by Newtonsoft.json. If you wish to use a different parser, then you will have to update one line of code inside SeqToLog4NetLogManager.cs.
-Navigate or search for the following method: LogDataToServer(LoggingEvent log, object structure) and update the following code,
 
-// Change this line if you want to use a different JSON serializer
-var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
+Navigate or search for the following method LogDataToServer(LoggingEvent log, object structure) and update the following code,
+
+        // Change this line if you want to use a different JSON serializer
+        var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
 to a Json serializer of your choice.
 
 <h2>Codebase</h2>
