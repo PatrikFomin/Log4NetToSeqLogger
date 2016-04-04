@@ -163,6 +163,18 @@ namespace SeqToLog4NetLogger.Models
                 }
             }
 
+            private void LogDataToServer(LoggingEvent log, object structure)
+            {
+                if (structure != null)
+                {
+                    // Change this line if you want to use a different JSON serializer
+                    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
+                    log.Properties["Data"] = jsonData;
+                }
+                var eventData = new[] { log };
+                SendToSeqServer(eventData);
+            }
+
             public void Debug(object message)
             {
                 Log.Debug(message);
@@ -180,14 +192,7 @@ namespace SeqToLog4NetLogger.Models
 
                 var loggingEvent = new LoggingEvent(LoggerType, Logger.Repository, Logger.Name, Level.Debug, message, null);
 
-                if (structure != null)
-                {
-                    // Change this line if you want to use a different JSON serializer
-                    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
-                    loggingEvent.Properties["Data"] = jsonData;
-                }
-                var eventData = new[] { loggingEvent };
-                SendToSeqServer(eventData);
+                LogDataToServer(loggingEvent, structure);
             }
 
             public void Debug(object message, Exception exception, object structure)
@@ -197,14 +202,7 @@ namespace SeqToLog4NetLogger.Models
 
                 var loggingEvent = new LoggingEvent(LoggerType, Logger.Repository, Logger.Name, Level.Debug, message, exception);
 
-                if (structure != null)
-                {
-                    // Change this line if you want to use a different JSON serializer
-                    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
-                    loggingEvent.Properties["Data"] = jsonData;
-                }
-                var eventData = new[] { loggingEvent };
-                SendToSeqServer(eventData);
+                LogDataToServer(loggingEvent, structure);
             }
 
             public void DebugFormat(string format, object arg0)
@@ -249,14 +247,7 @@ namespace SeqToLog4NetLogger.Models
 
                 var loggingEvent = new LoggingEvent(LoggerType, Logger.Repository, Logger.Name, Level.Error, message, null);
 
-                if (structure != null)
-                {
-                    // Change this line if you want to use a different JSON serializer
-                    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
-                    loggingEvent.Properties["Data"] = jsonData;
-                }
-                var eventData = new[] { loggingEvent };
-                SendToSeqServer(eventData);
+                LogDataToServer(loggingEvent, structure);
             }
 
             public void Error(object message, Exception exception, object structure)
@@ -266,14 +257,7 @@ namespace SeqToLog4NetLogger.Models
 
                 var loggingEvent = new LoggingEvent(LoggerType, Logger.Repository, Logger.Name, Level.Error, message, exception);
 
-                if (structure != null)
-                {
-                    // Change this line if you want to use a different JSON serializer
-                    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
-                    loggingEvent.Properties["Data"] = jsonData;
-                }
-                var eventData = new[] { loggingEvent };
-                SendToSeqServer(eventData);
+                LogDataToServer(loggingEvent, structure);
             }
 
             public void ErrorFormat(string format, object arg0)
@@ -318,14 +302,7 @@ namespace SeqToLog4NetLogger.Models
 
                 var loggingEvent = new LoggingEvent(LoggerType, Logger.Repository, Logger.Name, Level.Fatal, message, null);
 
-                if (structure != null)
-                {
-                    // Change this line if you want to use a different JSON serializer
-                    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
-                    loggingEvent.Properties["Data"] = jsonData;
-                }
-                var eventData = new[] { loggingEvent };
-                SendToSeqServer(eventData);
+                LogDataToServer(loggingEvent, structure);
             }
 
             public void Fatal(object message, Exception exception, object structure)
@@ -335,14 +312,7 @@ namespace SeqToLog4NetLogger.Models
 
                 var loggingEvent = new LoggingEvent(LoggerType, Logger.Repository, Logger.Name, Level.Fatal, message, exception);
 
-                if (structure != null)
-                {
-                    // Change this line if you want to use a different JSON serializer
-                    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
-                    loggingEvent.Properties["Data"] = jsonData;
-                }
-                var eventData = new[] { loggingEvent };
-                SendToSeqServer(eventData);
+                LogDataToServer(loggingEvent, structure);
             }
 
             public void FatalFormat(string format, object arg0)
@@ -387,14 +357,7 @@ namespace SeqToLog4NetLogger.Models
 
                 var loggingEvent = new LoggingEvent(LoggerType, Logger.Repository, Logger.Name, Level.Info, message, null);
 
-                if (structure != null)
-                {
-                    // Change this line if you want to use a different JSON serializer
-                    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
-                    loggingEvent.Properties["Data"] = jsonData;
-                }
-                var eventData = new[] { loggingEvent };
-                SendToSeqServer(eventData);
+                LogDataToServer(loggingEvent, structure);
             }
 
             public void Info(object message, Exception exception, object structure)
@@ -404,14 +367,7 @@ namespace SeqToLog4NetLogger.Models
 
                 var loggingEvent = new LoggingEvent(LoggerType, Logger.Repository, Logger.Name, Level.Info, message, exception);
 
-                if (structure != null)
-                {
-                    // Change this line if you want to use a different JSON serializer
-                    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
-                    loggingEvent.Properties["Data"] = jsonData;
-                }
-                var eventData = new[] { loggingEvent };
-                SendToSeqServer(eventData);
+                LogDataToServer(loggingEvent, structure);
             }
 
             public void InfoFormat(string format, object arg0)
@@ -456,14 +412,7 @@ namespace SeqToLog4NetLogger.Models
 
                 var loggingEvent = new LoggingEvent(LoggerType, Logger.Repository, Logger.Name, Level.Warn, message, null);
 
-                if (structure != null)
-                {
-                    // Change this line if you want to use a different JSON serializer
-                    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
-                    loggingEvent.Properties["Data"] = jsonData;
-                }
-                var eventData = new[] { loggingEvent };
-                SendToSeqServer(eventData);
+                LogDataToServer(loggingEvent, structure);
             }
 
             public void Warn(object message, Exception exception, object structure)
@@ -473,14 +422,7 @@ namespace SeqToLog4NetLogger.Models
 
                 var loggingEvent = new LoggingEvent(LoggerType, Logger.Repository, Logger.Name, Level.Warn, message, exception);
 
-                if (structure != null)
-                {
-                    // Change this line if you want to use a different JSON serializer
-                    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(structure);
-                    loggingEvent.Properties["Data"] = jsonData;
-                }
-                var eventData = new[] { loggingEvent };
-                SendToSeqServer(eventData);
+                LogDataToServer(loggingEvent, structure);
             }
 
             public void WarnFormat(string format, object arg0)
