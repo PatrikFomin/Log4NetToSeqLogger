@@ -5,7 +5,7 @@ So if you want to do structured logging with an event logging server like Seq bu
 
 <h2>Instructions</h2>
 
-Start by installing Seq (STRUCTURED LOGS FOR .NET APPS)
+Start by installing Seq (Structured logs for .NET apps)
 
 https://getseq.net/
 
