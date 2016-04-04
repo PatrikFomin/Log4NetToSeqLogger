@@ -9,13 +9,11 @@ Start by installing Seq (STRUCTURED LOGS FOR .NET APPS)
 
 https://getseq.net/
 
-Copy the one class SeqToLog4NetLogManager.cs into your project (or run the demo project)
+Copy the class SeqToLog4NetLogManager.cs into your project (or run the demo project). Newtonsoft.json is required unless you change it, see below.
 
 Configure the url to the Seq server. (This is done once during startup)
 
         SeqToLog4NetLogManager.Configure(seqServerUrl: "http://localhost:5341/");
-
-Instead of using log4net's GetLogger(assembly/name), you call SeqToLog4NetLogManager.GetLogger(assembly/name).
 
 Change this:
 
