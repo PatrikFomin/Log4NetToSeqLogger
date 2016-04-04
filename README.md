@@ -87,3 +87,5 @@ to a Json serializer of your choice.
 
 <h2>Codebase</h2>
 Parts of the codebase is taken from this project, https://github.com/continuousit/seq-client and has been slightly modified to allow sending of log4net events with custom data.
+
+Seq-client has an appender for log4net that allows you to send basic (none structured data) from log4net to Seq. This is done by adding the appender to your normal log4net config file.
